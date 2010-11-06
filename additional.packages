@@ -1,0 +1,33 @@
+#
+# Ruby
+ruby
+ruby-dev
+libopenssl-ruby
+irb
+
+#
+# Tools for building
+build-essential
+
+#
+# Inet
+curl
+wget
+ssl-cert
+
+#
+# SSH Server
+openssh-server
+
+#
+# Kernel
+linux-image-server
+grub
+
+#
+# Added as it is no longer install by debootstrap.
+aptitude
+
+#
+# Text editors
+emacs23
