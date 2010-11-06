@@ -11,10 +11,9 @@
 # been created and you discover a few more packages are required for
 # the minimal guest vm.
 #
-
-if [ -z UB_CONFIGURED ]; then
-  lerror "Please execute 'guest.bash' to configure the environment first."
-  false || die "UBE000"
+if [ -z $UB_CONFIGURED ]; then
+  echo "Please execute 'guest.bash' to configure the environment first."
+  exit 1
 fi
 
 # Initialise some helpers

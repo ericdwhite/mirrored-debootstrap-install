@@ -7,9 +7,9 @@
 # The Ubuntu disk sizes are set in:
 #   config.sh
 #
-if [ -z UB_CONFIGURED ]; then
-  lerror "Please execute 'guest.bash' to configure the environment first."
-  false || die "UBE000"
+if [ -z $UB_CONFIGURED ]; then
+  echo "Please execute 'guest.bash' to configure the environment first."
+  exit 1
 fi
 
 # Initialise some helpers
