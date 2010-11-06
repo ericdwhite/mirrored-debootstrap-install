@@ -15,6 +15,7 @@ UBE026="Failed to print partitions."
 UBE027="Failed to mount the image."
 UBE028="Failed to unmount the image."
 UBE029="Failed to create the boot partition."
+
 UBE030="Failed to create the root partition."
 UBE031="Mounting partitions failed."
 UBE032="Failed to install via the mirror and debootstrap."
@@ -23,3 +24,8 @@ UBE033="Failed to mount host directories in the chroot."
 UBE040="Apt installation failed."
 UBE041="Failed to configure Apt."
 UBE042="Kernel installation failed."
+
+UBE050="Creating basic configuration failed."
+
+UBE060="Failed to install grub."
+UBE061="Failed to write MBR to the disk image."

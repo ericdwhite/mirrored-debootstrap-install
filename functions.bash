@@ -17,7 +17,7 @@ function lerror {
 }
 
 function die {
-  eval lerror "$1-\$$(echo $@)"
+  eval lerror "$1 -\$$(echo $@)"
   exit 1
 }
 
