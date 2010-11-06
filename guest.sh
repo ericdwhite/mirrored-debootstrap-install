@@ -20,9 +20,6 @@
 
 function usage {
   echo "Usage: $0 -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
-  echo "   Create a guest with the following"
-  echo "     $0 vm-001 10.80.20.101 example.com 255.255.255.0 10.80.20.1 10.80.20.2"
-  echo
   echo "   Start a /bin/bash shell with a configured environment."
   echo "     $0 --shell -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
   echo
@@ -44,7 +41,6 @@ if [ "$1" == "--shell" ]; then
   UB_SHELL=/bin/bash
   shift
 fi
-
 
 while getopts "v:d:s:m:g:n:" opt
 do
@@ -68,7 +64,7 @@ linfo "Loading configuration from ${UB_HOME}/config.bash"
 . ${UB_HOME}/config.bash || die
 
 if [ -z $KVM_HOSTNAME ]; then
-    KVM_HOSTNMAE=$DEFAULT_KVM_HOSTNAME
+    KVM_HOSTNAME=$DEFAULT_KVM_HOSTNAME
 fi
 export KVM_HOSTNAME
 
@@ -95,7 +91,7 @@ export KVM_IP_GATEWAY
 if [ -z $KVM_IP_NAMESERVER ]; then
     KVM_IP_NAMESERVER=$DEFAULT_KVM_IP_NAMESERVER
 fi
-export KVM_NAME_SERVER
+export KVM_IP_NAMESERVER
 
 KVM_FQDN=${KVM_HOSTNAME}.${KVM_DOMAIN}
 export KVM_FQDN
