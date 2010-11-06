@@ -44,13 +44,16 @@ EOF' || die "UBE060" "Failed to create /boot/grub/menu.lst"
     sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/stage2 ${VM_ROOT}/boot/grub/ || die "UBE060"
     sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/e2fs_stage1_5 ${VM_ROOT}/boot/grub/ || die "UBE060"
 
-    linfo "Installing the MBR"
-    grub --device-map=/dev/null <<EOF
+    linfo "Installing the MBR to: ${DISK_IMAGE}"
+     grub --device-map=/dev/null <<EOF
 device (hd0) ${DISK_IMAGE}
 root (hd0,0)
 setup (hd0)
 quit
-EOF || die "UBE061" "Failed to write MBR.
+EOF
+     if [ $? -ne 0 ]; then
+	 die "UBE061" "Failed to write MBR."
+     fi
 
-    ${UB_HOME}/11-umount-image.bash || die
+     ${UB_HOME}/11-umount-image.bash || die
 )
