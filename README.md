@@ -4,7 +4,7 @@ Creating a KVM Ubuntu VM using Debootstrap
 This repository contains scripts to automatically create a KVM image
 based on the parameters specified in `config.sh`.
 
-The overall process is described [here](http://TODO).
+The overall process is described [here](http://blog.ericwhite.ca/articles/2010/10/kvm-ubuntu-vm-using-debootstrap/).
 
 Requirements:
 
@@ -75,7 +75,7 @@ kvm -drive file=ubuntu-maverick-amd64.img,index=0,media=disk -m 256m
 </pre>
 
 See: 'Wireless Bridge for Laptop Hosts' at end of this article for
-the setup of a network taped interface [here](http://TODO).
+the setup of a network taped interface [here](http://blog.ericwhite.ca/articles/2010/10/kvm-ubuntu-vm-using-debootstrap/).
 
 <pre>
 kvm -drive file=ubuntu-maverick-amd64.img,index=0,media=disk \
