@@ -31,3 +31,7 @@ aptitude
 #
 # Text editors
 emacs23
+
+#
+# Git
+git-core
