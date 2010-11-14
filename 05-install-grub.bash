@@ -39,10 +39,15 @@ EOF' || die "UBE060" "Failed to create /boot/grub/menu.lst"
     sudo chroot ${VM_ROOT} /bin/bash -c 'DEBIAN_FRONTEND=noninteractive apt-get \
                    -y --force-yes install grub' || die "UBE040" "Apt install of grub failed."
 
-    # This most likely needs to be changed for x386 architecture.
-    sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/stage1 ${VM_ROOT}/boot/grub/ || die "UBE060"
-    sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/stage2 ${VM_ROOT}/boot/grub/ || die "UBE060"
-    sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/e2fs_stage1_5 ${VM_ROOT}/boot/grub/ || die "UBE060"
+    if [ "$U_ARCH" == "i386" ]; then
+	sudo cp ${VM_ROOT}/usr/lib/grub/i386-pc/stage1 ${VM_ROOT}/boot/grub/ || die "UBE060"
+	sudo cp ${VM_ROOT}/usr/lib/grub/i386-pc/stage2 ${VM_ROOT}/boot/grub/ || die "UBE060"
+	sudo cp ${VM_ROOT}/usr/lib/grub/i386-pc/e2fs_stage1_5 ${VM_ROOT}/boot/grub/ || die "UBE060"
+    else
+	sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/stage1 ${VM_ROOT}/boot/grub/ || die "UBE060"
+	sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/stage2 ${VM_ROOT}/boot/grub/ || die "UBE060"
+	sudo cp ${VM_ROOT}/usr/lib/grub/x86_64-pc/e2fs_stage1_5 ${VM_ROOT}/boot/grub/ || die "UBE060"
+    fi
 
     linfo "Installing the MBR to: ${DISK_IMAGE}"
      grub --device-map=/dev/null <<EOF
