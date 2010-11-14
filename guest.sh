@@ -19,7 +19,7 @@
 # KVM_IP_NAMESERVER - Name server reachable from the guest.
 
 function usage {
-  echo "Usage: $0 -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
+  echo "Usage: $0 --shell -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
   echo "   Start a /bin/bash shell with a configured environment."
   echo "     $0 --shell -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
   echo
