@@ -33,7 +33,7 @@ fi
         $(( 2048+${DISK_PART_SIZE_BOOT} )) $(( 2048+${DISK_PART_SIZE_BOOT}+${DISK_PART_SIZE_ROOT}-1 )) || die "UBE024"
 
     linfo "Toggle the boot flag on"
-    parted ubuntu-maverick-amd64.img set 1 boot on || die "UBE025"
+    parted ${DISK_IMAGE} set 1 boot on || die "UBE025"
     
     linfo "Image layout in 512B sectors."
     parted ${DISK_IMAGE} unit s print || die "UBE026"
