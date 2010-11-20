@@ -20,7 +20,7 @@ fi
     ${UB_HOME}/10-mount-image.bash || die
 
     linfo "Switching into the: ${VM_ROOT}"
-    sudo chroot ${VM_ROOT} /bin/bash
+    sudo chroot ${VM_ROOT} /bin/sh
 
     ${UB_HOME}/11-umount-image.bash || die
 )
