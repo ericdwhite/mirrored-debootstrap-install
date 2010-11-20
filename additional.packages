@@ -35,3 +35,6 @@ emacs23
 #
 # Git
 git-core
+
+# NFS client for mounting the mirror
+nfs-client
