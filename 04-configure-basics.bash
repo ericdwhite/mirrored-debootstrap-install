@@ -20,6 +20,9 @@ fi
     ${UB_HOME}/11-umount-image.bash || die
     ${UB_HOME}/10-mount-image.bash || die
 
+    linfo "Setting the root password."
+    sudo chroot ${VM_ROOT} /bin/bash -c 'echo "root:gotcha12" | chpasswd' || die
+
     linfo "Creating /etc/fstab"
     sudo chroot ${VM_ROOT} /bin/bash -c 'cat > /etc/fstab<<EOF
 # /etc/fstab: static file system information.

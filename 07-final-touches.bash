@@ -22,9 +22,6 @@ fi
     ${UB_HOME}/11-umount-image.bash || die
     ${UB_HOME}/10-mount-image.bash || die
 
-    linfo "Setting the root password."
-    sudo chroot ${VM_ROOT} /bin/bash -c 'echo "root:gotcha12" | chpasswd' || die
-
     linfo "Reverting the apt sources changes"
     sudo cp ${VM_ROOT}/etc/apt/sources.list ${VM_ROOT}/etc/apt/sources.list.mirror || die
     sudo cp ${VM_ROOT}/etc/apt/sources.list.bak ${VM_ROOT}/etc/apt/sources.list || die
