@@ -21,7 +21,7 @@ fi
     # There could be errors but when things are messed it is best try
     # and unwind everything and check the final mount status.
 
-    echo "Capturing errors during unmount process." > ERRORS.txt
+    echo "Errors encountered during unmount process will be displayed here:" > ERRORS.txt
     linfo "Unmount vm /dev"
     sudo umount ${VM_ROOT}/dev 2>> ERRORS.txt
 
