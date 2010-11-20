@@ -99,6 +99,9 @@ export KVM_FQDN
 KVM_SEARCH_DOMAIN="${KVM_DOMAIN}"
 export KVM_SEARCH_DOMAIN
 
+export DISK_IMAGE=${KVM_HOSTNAME}_ubuntu-${U_RELEASE}-${U_ARCH}.img
+export VM_ROOT=${U_RELEASE}-${U_ARCH}-vm
+
 echo "Using network configuration"
 echo "  hostname  : $KVM_HOSTNAME"
 echo "  domain    : $KVM_DOMAIN"
@@ -107,6 +110,7 @@ echo "  static-ip : $KVM_IP_STATIC"
 echo "  netmask   : $KVM_IP_NETMASK"
 echo "  gateway   : $KVM_IP_GATEWAY"
 echo "  nameserver: $KVM_IP_NAMESERVER"
+echo "  diskimage : $DISK_IMAGE"
 
 if [ $UB_SHELL ]; then
     $UB_SHELL

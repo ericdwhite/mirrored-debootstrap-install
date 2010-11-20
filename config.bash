@@ -19,7 +19,7 @@ U_RELEASE=maverick
 export U_RELEASE
 
 # Ubuntu Architecture
-U_ARCH=amd64
+U_ARCH=i386
 export U_ARCH
 
 # Ubuntu Source Package Mirror
@@ -51,13 +51,9 @@ DEFAULT_KVM_IP_NAMESERVER=10.80.20.10
 #
 # Note: Leave 1 MiB for the MBR, and specify sizes in whole MiB only.
 #
-export KVM_IMAGE_SIZE=1000
+export KVM_IMAGE_SIZE=2000
 export KVM_IMAGE_BOOT=60
-export KVM_IMAGE_ROOT=939
-
-export DISK_IMAGE=ubuntu-${U_RELEASE}-${U_ARCH}.img
-export VM_ROOT=${U_RELEASE}-${U_ARCH}-vm
-
+export KVM_IMAGE_ROOT=$(( $KVM_IMAGE_SIZE - $KVM_IMAGE_BOOT - 1 ))
 
 # This is a marker to ensure this file
 # is only loaded once.
