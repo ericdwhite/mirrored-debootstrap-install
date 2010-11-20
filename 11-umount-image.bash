@@ -25,6 +25,9 @@ fi
     linfo "Unmount vm /dev"
     sudo umount ${VM_ROOT}/dev 2>> ERRORS.txt
 
+    linfo "Unmount vm /proc"
+    sudo umount ${VM_ROOT}/proc 2>> ERRORS.txt
+
     linfo "Unmount vm /tmp/mirror"
     sudo umount ${VM_ROOT}/tmp/mirror 2>> ERRORS.txt
 

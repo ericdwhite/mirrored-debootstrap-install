@@ -36,6 +36,16 @@ fi
 	fi
     fi
 
+    linfo "Make the /proc available in the chroot."
+    mount -l | grep ${U_RELEASE} | grep '/proc ' | grep ${VM_ROOT}
+    PROC_MOUNTED=$?
+    if [ $PROC_MOUNTED -ne 0 ]; then
+	if [ -d ${VM_ROOT}/dev ]; then
+	    linfo "Binding /proc"
+	    sudo mount --bind /proc ${VM_ROOT}/proc || die "UBE033"
+	fi
+    fi
+
     mount -l | grep ${U_RELEASE} | grep '/tmp/mirror ' | grep ${VM_ROOT}
     MIRROR_MOUNTED=$?
     if [ $MIRROR_MOUNTED -ne 0 ]; then
