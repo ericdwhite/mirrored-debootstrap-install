@@ -61,8 +61,9 @@ command.  So that they should fail fast if something goes wrong.
 02-create-kvm-disk-image.bash
 03-install-ubuntu.bash
 04-configure-basics.bash
-05-install-grub.bash
-06-final-touches.bash
+05-install-additional-packages.bash
+06-install-grub.bash
+07-final-touches.bash
 </pre>
 
 Booting the vm
@@ -111,12 +112,14 @@ testing it is sometimes handy to rerun bits of the process to fine
 tune the result.
 
 Updating the Additional Packages List
-=====================================
+===================================== 
+
 If you find that part way through the installation process you would
-like additional packages.  You can modify `additional.packages` and
-re-run `01-create-boostrap-mirror.bash` the new packages will be
-downloaded and mirror updated.  This process should only take a small
-amount of time as only the new packages will be downloaded.
+like additional packages.  You can modify `additional.packages` or
+`mirror.packages` and re-run `01-create-boostrap-mirror.bash` the new
+packages will be downloaded and mirror updated.  This process should
+only take a small amount of time as only the new packages will be
+downloaded.
 
 Re-running the script will also download new updates for previously
 mirrored packages.
