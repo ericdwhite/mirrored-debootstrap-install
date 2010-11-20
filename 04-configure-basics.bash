@@ -43,11 +43,10 @@ LANG="en_US.UTF-8"
 EOF' || die "UBE50" "Failed to create /etc/environment."
     cat ${VM_ROOT}/etc/environment || die "UBE50" "Failed to create /etc/environment."
 
-
     linfo "Reconfigure locales."
 sudo chroot ${VM_ROOT} /bin/bash -c 'locale-gen "en_US.UTF-8"' || die "UBE50"
+sudo chroot ${VM_ROOT} /bin/bash -c 'locale-gen "en_GB.UTF-8"' || die "UBE50"
 sudo chroot ${VM_ROOT} /bin/bash -c 'dpkg-reconfigure locales' || die "UBE50"
-
 
     linfo "Configuring /etc/network/interfaces with static IP: $KVM_IP_STATIC"
     sudo env KVM_IP_STATIC=$KVM_IP_STATIC   \
