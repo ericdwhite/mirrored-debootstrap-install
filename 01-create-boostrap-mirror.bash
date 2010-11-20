@@ -104,12 +104,17 @@ EOF
     #  Note: we copy it and filter out comments and empty lines.
     if [ -r ${UB_HOME}/additional.packages ]; then
 	linfo "Finding dependencies for packages listed in: ${UB_HOME}/additional.packages"
-	cat ${UB_HOME}/additional.packages | grep -Ev '^#.*|^\s*$' | sort > additional.packages
-	cat additional.packages
+	cat ${UB_HOME}/additional.packages | grep -Ev '^#.*|^\s*$' | sort > packages-to-mirror
     else
 	lerror "Please specify at least a kernel in: ${UB_HOME}/additional.packages"
 	die "UBE003"
     fi
+
+    if [ -r ${UB_HOME}/mirror.packages ]; then
+	linfo "Finding dependencies for packages listed in: ${UB_HOME}/mirror.packages"
+	cat ${UB_HOME}/mirror.packages | grep -Ev '^#.*|^\s*$' | sort >> packages-to-mirror
+    fi
+    cat packages-to-mirror
     
     # Use configure and use germinate to find out the dependencies for those additional packages.
     mkdir -p seeds
@@ -120,7 +125,7 @@ required:
 supported:
 EOF
     linfo "Seeding with: " `pwd`/seeds/required
-    for pkg in $(cat additional.packages); do
+    for pkg in $(cat packages-to-mirror); do
 	echo " * $pkg";
     done > seeds/required
 

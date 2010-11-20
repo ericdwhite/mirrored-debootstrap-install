@@ -1,0 +1,13 @@
+# This is a list of packages that will be mirrored locally, in
+# addition to those specified in additional.packages.
+
+# These won't be installed in the guest by default, but can be made
+# available.  Note you only need to specify the top level packages,
+# their dependencies will be resolved.
+
+
+#
+# Text editors
+emacs23
+
+xml-twig-tools 

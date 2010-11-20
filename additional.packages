@@ -1,3 +1,13 @@
+# This is the list of additional packages that will be installed in
+# the guest.  Note these will be installed in a chroot environment
+# which may bring its own issues.  If you just want to mirror packages
+# add them to mirror.packages.
+
+# It is best to keep this list short, and continue the install from a
+# running guest using the mirror, chef, puppet, etc.
+#
+#  See: nfs-common at the end of this document.
+
 #
 # Ruby
 ruby
@@ -29,12 +39,34 @@ grub
 aptitude
 
 #
-# Text editors
-emacs23
-
-#
 # Git
 git-core
 
+#
+# You may get away with additional packages, but not all packages
+# can be installed in a chroot environment.
+
+# If you want to install additional packages it is best to mirror them
+# and then boot the kvm and mount the mirror using NFS, or
+# alternatively use chef or puppet to continue the install.  Using NFS
+# brings it's own issues see the following.
+
 # NFS client for mounting the mirror
-nfs-client
+#   nfs-common won't install in a chroot
+#   without some additional help.
+#
+#   First time through the installation of nfs-common will fail.
+#   Steps:
+#     1) Use 12-chroot.bash to enter the chroot
+#     2) chroot# dpkg-divert --local --rename --add /sbin/initctl
+#     3) chroot# ln -s /bin/true /sbin/init
+#     4) chroot# apt-get install nfs-common
+#     5) chroot# rm /sbin/initctl
+#     6) chroot# dpkg-divert --local --rename --remove /sbin/initctl
+#
+#     nfs-common tries to use upstart to start statd resulting in:
+#       start: Unknown job: statd
+#
+#     Thanks: http://blog.opperschaap.net/2009/11/16/chroot-with-upstart/
+#
+#nfs-common
