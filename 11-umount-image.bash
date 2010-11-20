@@ -21,24 +21,26 @@ fi
     # There could be errors but when things are messed it is best try
     # and unwind everything and check the final mount status.
 
+    echo "Capturing errors during unmount process." > ERRORS.txt
     linfo "Unmount vm /dev"
-    sudo umount ${VM_ROOT}/dev 2> /dev/null
+    sudo umount ${VM_ROOT}/dev 2>> ERRORS.txt
 
     linfo "Unmount vm /tmp/mirror"
-    sudo umount ${VM_ROOT}/tmp/mirror 2> /dev/null
+    sudo umount ${VM_ROOT}/tmp/mirror 2>> ERRORS.txt
 
     linfo "Unmount vm /boot"
-    sudo umount /dev/mapper/loop5p1 2> /dev/null
+    sudo umount /dev/mapper/loop5p1 2>> ERRORS.txt
 
     linfo "Unmount vm /"
     sync
-    sudo umount /dev/mapper/loop5p2 2> /dev/null
+    sudo umount /dev/mapper/loop5p2 2>> ERRORS.txt
 
     linfo "Release the loop."
-    sudo kpartx -d /dev/loop5  2> /dev/null
-    sudo losetup -d /dev/loop5  2> /dev/null
+    sudo kpartx -d /dev/loop5  2>> ERRORS.txt
+    sudo losetup -d /dev/loop5  2>> ERRORS.txt
 
     linfo "Checking for mount points containing: ${VM_ROOT}"
+    cat ERRORS.txt
     mount -l | grep ${VM_ROOT} && die "UBE028"
 
     linfo "Unmounted."
