@@ -51,20 +51,40 @@ mkdir -p ${U_RELEASE}-${U_ARCH}-bootstrap/mirror
 Codename: ${U_RELEASE}
 Architectures: ${U_ARCH} source
 Description: Ubuntu ${U_RELEASE}-${U_ARCH} (Required packages only)
-Components: main
-Update: ubuntu-${U_RELEASE}-${U_ARCH}-update
+Components: main universe
+Update: ubuntu-${U_RELEASE}-${U_ARCH}
 
 Codename: ${U_RELEASE}-updates
 Architectures: ${U_ARCH} source
 Description: Ubuntu ${U_RELEASE}-${U_ARCH} Updates (Required packages only)
-Components: main
-Update: ubuntu-${U_RELEASE}-${U_ARCH}-update
+Components: main universe
+Update: ubuntu-${U_RELEASE}-${U_ARCH}-updates
+
+Codename: ${U_RELEASE}-security
+Architectures: ${U_ARCH} source
+Description: Ubuntu ${U_RELEASE}-${U_ARCH} Security (Required packages only)
+Components: main universe
+Update: ubuntu-${U_RELEASE}-${U_ARCH}-security
 EOF
 
     cat > conf/updates <<EOF
-Name: ubuntu-${U_RELEASE}-${U_ARCH}-update
+Name: ubuntu-${U_RELEASE}-${U_ARCH}
 Method: ${U_MIRROR}
-Components: main
+Components: main universe
+Architectures: ${U_ARCH} source
+FilterList: purge all-packages.mirror
+VerifyRelease: blindtrust
+
+Name: ubuntu-${U_RELEASE}-${U_ARCH}-updates
+Method: ${U_MIRROR}
+Components: main universe
+Architectures: ${U_ARCH} source
+FilterList: purge all-packages.mirror
+VerifyRelease: blindtrust
+
+Name: ubuntu-${U_RELEASE}-${U_ARCH}-security
+Method: ${U_MIRROR}
+Components: main universe
 Architectures: ${U_ARCH} source
 FilterList: purge all-packages.mirror
 VerifyRelease: blindtrust
@@ -110,7 +130,7 @@ EOF
 	germinate -v -m ${U_MIRROR} \
             -a ${U_ARCH} \
             -d ${U_RELEASE} \
-            -c main \
+            -c main,universe \
             -s seeds \
             -S file://`pwd`/.. || die "UBE004"
     )
@@ -133,6 +153,7 @@ EOF
     linfo "Populating the mirror.  This could take some time..."
     reprepro --noskipold -V update ${U_RELEASE} || die "UBE005"
     reprepro --noskipold -V update ${U_RELEASE}-updates || die "UBE006"
+    reprepro --noskipold -V update ${U_RELEASE}-security || die "UBE007"
 
     linfo "Successfully populated the mirror!"
 )

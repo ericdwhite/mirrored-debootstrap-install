@@ -34,7 +34,9 @@ fi
     linfo "Configure apt to use the mirror, and install packages."
     sudo cp ${VM_ROOT}/etc/apt/sources.list ${VM_ROOT}/etc/apt/sources.list.bak || die
     sudo chroot ${VM_ROOT} /bin/bash -c 'cat > /etc/apt/sources.list<<EOF
-deb file:///tmp/mirror maverick main
+deb file:///tmp/mirror maverick main universe
+deb file:///tmp/mirror maverick-updates main universe
+deb file:///tmp/mirror maverick-security main universe
 EOF' || die "UBE041"
 
     sudo sh -c 'cat > ${VM_ROOT}/etc/apt/apt.conf.d/99-vm-no-extras-please <<EOF
