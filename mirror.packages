@@ -5,6 +5,9 @@
 # available.  Note you only need to specify the top level packages,
 # their dependencies will be resolved.
 
+#
+# NFS for mounting the mirror
+nfs-common
 
 #
 # Text editors
