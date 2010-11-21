@@ -8,6 +8,7 @@ UBE006="Failed to mirror the updates packages.  Check the configuration in conf/
 UBE007="Failed to mirror the security packages.  Check the configuration in conf/distributions."
 
 UBE021="Failed to create disk image.  Has KVM_IMAGE_SIZE been set in config.bash."
+UBE021a="Failed to create swap disk image.  Has KVM_SWAP_IMAGE_SIZE been set in config.bash."
 UBE022="Failed to label the image."
 UBE023="Failed to create boot partition. Check KVM_IMAGE_BOOT parameter in config.bash."
 UBE024="Failed to create root partition. Check KVM_IMAGE_ROOT parameter in config.bash."

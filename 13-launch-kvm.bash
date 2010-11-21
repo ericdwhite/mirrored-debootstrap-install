@@ -15,6 +15,7 @@ fi
 
     ${UB_HOME}/11-umount-image.bash || die
     kvm -drive file=${DISK_IMAGE},index=0,media=disk \
+	-drive file=${VM_SWAP_IMAGE},index=1,media=disk \
 	-net tap,ifname=tap0,script=no,downscript=no -net nic \
 	-m 256m
 )

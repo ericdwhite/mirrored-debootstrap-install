@@ -100,6 +100,7 @@ KVM_SEARCH_DOMAIN="${KVM_DOMAIN}"
 export KVM_SEARCH_DOMAIN
 
 export DISK_IMAGE=${KVM_HOSTNAME}_ubuntu-${U_RELEASE}-${U_ARCH}.img
+export VM_SWAP_IMAGE=${KVM_HOSTNAME}_swap_ubuntu-${U_RELEASE}-${U_ARCH}.img
 export VM_ROOT=${U_RELEASE}-${U_ARCH}-vm
 
 echo "Using network configuration"

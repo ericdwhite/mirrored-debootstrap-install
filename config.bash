@@ -54,6 +54,7 @@ DEFAULT_KVM_IP_NAMESERVER=10.80.20.10
 export KVM_IMAGE_SIZE=2000
 export KVM_IMAGE_BOOT=60
 export KVM_IMAGE_ROOT=$(( $KVM_IMAGE_SIZE - $KVM_IMAGE_BOOT - 1 ))
+export KVM_SWAP_IMAGE_SIZE=500
 
 # This is a marker to ensure this file
 # is only loaded once.
