@@ -59,7 +59,7 @@ git-core
 #   Steps:
 #     1) Use 12-chroot.bash to enter the chroot
 #     2) chroot# dpkg-divert --local --rename --add /sbin/initctl
-#     3) chroot# ln -s /bin/true /sbin/init
+#     3) chroot# ln -s /bin/true /sbin/initctl
 #     4) chroot# apt-get install nfs-common
 #     5) chroot# rm /sbin/initctl
 #     6) chroot# dpkg-divert --local --rename --remove /sbin/initctl
