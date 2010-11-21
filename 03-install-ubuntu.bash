@@ -27,7 +27,7 @@ fi
 
     # Remount everything to make mirror and /dev available in the chroot.
     linfo "Remounting after debootstrap install."
-    mkdir -p ${VM_ROOT}/mnt/mirror || die
+    sudo mkdir -p ${VM_ROOT}/mnt/mirror || die
     ${UB_HOME}/11-umount-image.bash || die
     ${UB_HOME}/10-mount-image.bash || die
 

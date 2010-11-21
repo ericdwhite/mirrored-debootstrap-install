@@ -35,6 +35,7 @@ fi
 proc            /proc           proc    defaults                   0       0
 LABEL=boot      /boot           ext2    relatime                   0       2
 LABEL=root      /               ext3    relatime,errors=remount-ro 0       1
+LABEL=swap      swap            swap    pri=42                     0       0
 EOF' || die "UBE50" "Failed to create /etc/fstab."
     cat ${VM_ROOT}/etc/fstab || die "UBE50" "Failed to create /etc/fstab."
 
