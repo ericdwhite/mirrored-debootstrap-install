@@ -28,8 +28,8 @@ fi
     linfo "Unmount vm /proc"
     sudo umount ${VM_ROOT}/proc 2>> ERRORS.txt
 
-    linfo "Unmount vm /tmp/mirror"
-    sudo umount ${VM_ROOT}/tmp/mirror 2>> ERRORS.txt
+    linfo "Unmount vm /mnt/mirror"
+    sudo umount ${VM_ROOT}/mnt/mirror 2>> ERRORS.txt
 
     linfo "Unmount vm /boot"
     sudo umount /dev/mapper/loop5p1 2>> ERRORS.txt

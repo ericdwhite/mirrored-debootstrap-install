@@ -1,0 +1,4 @@
+# Local mirror
+deb file:///mnt/mirror maverick main universe
+deb file:///mnt/mirror maverick-updates main universe
+deb file:///mnt/mirror maverick-security main universe

@@ -1,0 +1,17 @@
+# Ubuntu Sources List Generator
+#  http://repogen.simplylinux.ch/
+
+###### Ubuntu Main Repos
+deb {{MIRROR}} maverick main universe 
+deb-src {{MIRROR}} maverick main universe 
+
+###### Ubuntu Update Repos
+deb {{MIRROR}} maverick-security main universe 
+deb-src {{MIRROR}} maverick-security main universe 
+
+deb {{MIRROR}} maverick-updates main universe 
+deb-src {{MIRROR}} maverick-updates main universe 
+
+deb {{MIRROR}} maverick-backports main universe 
+deb-src {{MIRROR}} maverick-backports main universe
+

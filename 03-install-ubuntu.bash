@@ -27,17 +27,14 @@ fi
 
     # Remount everything to make mirror and /dev available in the chroot.
     linfo "Remounting after debootstrap install."
-    mkdir -p ${VM_ROOT}/tmp/mirror || die
+    mkdir -p ${VM_ROOT}/mnt/mirror || die
     ${UB_HOME}/11-umount-image.bash || die
     ${UB_HOME}/10-mount-image.bash || die
 
     linfo "Configure apt to use the mirror, and install packages."
-    sudo cp ${VM_ROOT}/etc/apt/sources.list ${VM_ROOT}/etc/apt/sources.list.bak || die
-    sudo chroot ${VM_ROOT} /bin/bash -c 'cat > /etc/apt/sources.list<<EOF
-deb file:///tmp/mirror maverick main universe
-deb file:///tmp/mirror maverick-updates main universe
-deb file:///tmp/mirror maverick-security main universe
-EOF' || die "UBE041"
+    sudo cp ${VM_ROOT}/etc/apt/sources.list ${VM_ROOT}/etc/apt/sources.list.debootstrap || die
+    sudo cp ${UB_HOME}/source.list.mirror   ${VM_ROOT}/etc/apt/sources.list.mirror || die "UBE041"
+    sudo cp ${UB_HOME}/source.list.mirror   ${VM_ROOT}/etc/apt/sources.list || die "UBE041"
 
     sudo sh -c 'cat > ${VM_ROOT}/etc/apt/apt.conf.d/99-vm-no-extras-please <<EOF
 APT::Install-Recommends "false";

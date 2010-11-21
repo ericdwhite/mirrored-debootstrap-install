@@ -23,8 +23,9 @@ fi
     ${UB_HOME}/10-mount-image.bash || die
 
     linfo "Reverting the apt sources changes"
-    sudo cp ${VM_ROOT}/etc/apt/sources.list ${VM_ROOT}/etc/apt/sources.list.mirror || die
-    sudo cp ${VM_ROOT}/etc/apt/sources.list.bak ${VM_ROOT}/etc/apt/sources.list || die
+    cat ${UB_HOME}/source.list.template | awk '{gsub("{{MIRROR}}", "'${U_MIRROR}'");print}' > tmp/source.list.live
+    sudo cp tmp/source.list.live ${VM_ROOT}/etc/apt/sources.list.live || die
+    sudo cp ${VM_ROOT}/etc/apt/sources.list.live ${VM_ROOT}/etc/apt/sources.list || die
 
     ${UB_HOME}/11-umount-image.bash || die
 )

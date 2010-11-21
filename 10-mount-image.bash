@@ -46,12 +46,13 @@ fi
 	fi
     fi
 
-    mount -l | grep ${U_RELEASE} | grep '/tmp/mirror ' | grep ${VM_ROOT}
+    mount -l | grep ${U_RELEASE} | grep '/mnt/mirror ' | grep ${VM_ROOT}
     MIRROR_MOUNTED=$?
     if [ $MIRROR_MOUNTED -ne 0 ]; then
-	if [ -d ${VM_ROOT}/tmp/mirror ]; then
-            linfo "Binding /tmp/mirror"
-	    sudo mount --bind mirror ${VM_ROOT}/tmp/mirror || die "UBE033"
+	if [ -d ${VM_ROOT}/mnt ]; then
+            linfo "Binding /mnt/mirror"
+	    sudo mkdir -p ${VM_ROOT}/mnt/mirror || die
+	    sudo mount --bind mirror ${VM_ROOT}/mnt/mirror || die "UBE033"
 	fi
     fi
 
