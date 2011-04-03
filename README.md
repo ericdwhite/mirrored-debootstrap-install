@@ -9,7 +9,7 @@ The overall process is described [here](http://blog.ericwhite.ca/articles/2010/1
 Requirements:
 
  * Debian/Ubuntu starting system
- * $ sudo apt-get install debootstrap germinate reprepro kpartx uml-utilities parprouted
+ * $ sudo apt-get install debootstrap germinate reprepro kpartx uml-utilities qemu-kvm parprouted
  * sudo
 
 Running these scripts
