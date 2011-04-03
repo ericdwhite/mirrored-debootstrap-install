@@ -9,6 +9,7 @@ The overall process is described [here](http://blog.ericwhite.ca/articles/2010/1
 Requirements:
 
  * Debian/Ubuntu starting system
+ * $ sudo apt-get install debootstrap germinate reprepro kpartx uml-utilities parprouted
  * sudo
 
 Running these scripts
@@ -17,7 +18,10 @@ Running these scripts
 To run these scripts first set some local variables in your
 environment used to create and configure the guest.  The default
 configuration comes from `config.bash`, but the key elements are set
-in the environment using the `guest.sh` script.
+in the environment using the `guest.sh` script.  This will also save
+the configured setting in guests/<hostname>.params.  This parameter
+file can then be used to lauch a shell using: 
+   ./guest.sh --shell -f guests/<hostname>.params 
 
 To see the `guest.sh` usage:
 

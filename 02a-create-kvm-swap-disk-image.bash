@@ -15,7 +15,7 @@ fi
 # Initialise some helpers
 . ${UB_HOME}/functions.bash
 
-(cd ${U_RELEASE}-${U_ARCH}-bootstrap
+(cd ${U_RELEASE}-${U_ARCH}-bootstrap || die
     linfo "Working in: ${U_RELEASE}-${U_ARCH}-bootstrap"
 
     linfo "Creating ${VM_SWAP_IMAGE}"

@@ -4,7 +4,7 @@
 #
 # The idea is to put the ones that vary the most first, eg. hostname
 # and IP so that they can be set by a script.  The defaults are in
-# `config.bash`.
+# `config.bash`.  The results will be saved to a file guests/<KVM_HOSTNAME>.bash
 #
 # The following environment variables are exported in addtion to those
 # defined in `config.bash`.
@@ -21,8 +21,9 @@
 function usage {
   echo "Usage: $0 --shell -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
   echo "   Start a /bin/bash shell with a configured environment."
-  echo "     $0 --shell -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
   echo
+  echo "     $0 --shell -v <HOSTNAME> -d <DOMAINNAME> -s <STATICIP> -m <NETMASK> -g <GATEWAY> -n <NAMESERVER>"
+  echo "     $0 --shell -f guests/<HOSTNAME>.params (Reads the configuration for the specified guest.)"
 }
 
 if [ -z $1 ]; then
@@ -42,7 +43,7 @@ if [ "$1" == "--shell" ]; then
   shift
 fi
 
-while getopts "v:d:s:m:g:n:" opt
+while getopts "v:d:s:m:g:n:f:" opt
 do
   case "$opt" in
         v) KVM_HOSTNAME=$OPTARG;;
@@ -51,8 +52,10 @@ do
         m) KVM_IP_NETMASK=$OPTARG;;
         g) KVM_IP_GATEWAY=$OPTARG;;
         n) KVM_IP_NAMESERVER=$OPTARG;;
+        f) GUEST_PARAMS=$OPTARG;;
   esac
 done
+
 
 # Initialize some helpers
 UB_HOME=`dirname $(readlink -f $0)`
@@ -63,46 +66,75 @@ export UB_HOME
 linfo "Loading configuration from ${UB_HOME}/config.bash"
 . ${UB_HOME}/config.bash || die
 
+function read_params() {
+    echo "Reading parameters from: $1"
+    source $1
+}
+if [ -n "$GUEST_PARAMS" ]; then
+    read_params ${GUEST_PARAMS}
+fi
+
 if [ -z $KVM_HOSTNAME ]; then
     KVM_HOSTNAME=$DEFAULT_KVM_HOSTNAME
 fi
-export KVM_HOSTNAME
+
+if [ -z $GUEST_PARAMS ]; then
+    mkdir -p ${UB_HOME}/guests
+    echo "Storing guest infomration in: guests/${KVM_HOSTNAME}.params"
+    PARAMS=${UB_HOME}/guests/$KVM_HOSTNAME.params
+fi
+
+function store_params() {
+echo "# Generated : " `date` > ${PARAMS}
+echo "KVM_HOSTNAME=${KVM_HOSTNAME}" >> ${PARAMS}
+echo "export KVM_HOSTNAME" >> ${PARAMS}
 
 if [ -z $KVM_IP_STATIC ]; then
     KVM_IP_STATIC=$DEFAULT_KVM_IP_STATIC
 fi
-export KVM_IP_STATIC
+echo "KVM_IP_STATIC=${KVM_IP_STATIC}" >> ${PARAMS}
+echo "export KVM_IP_STATIC" >> ${PARAMS}
 
 if [ -z $KVM_DOMAIN ]; then
     KVM_DOMAIN=$DEFAULT_KVM_DOMAIN
 fi
-export KVM_DOMAIN
+echo "KVM_DOMAIN=${KVM_DOMAIN}" >> ${PARAMS}
+echo "export KVM_DOMAIN" >> ${PARAMS}
 
 if [ -z $KVM_IP_NETMASK ]; then
     KVM_IP_NETMASK=$DEFAULT_KVM_IP_NETMASK
 fi
-export KVM_IP_NETMASK
+echo "KVM_IP_NETMASK=${KVM_IP_NETMASK}" >> ${PARAMS}
+echo "export KVM_IP_NETMASK" >> ${PARAMS}
 
 if [ -z $KVM_IP_GATEWAY ]; then
     KVM_IP_GATEWAY=$DEFAULT_KVM_IP_GATEWAY
 fi
-export KVM_IP_GATEWAY
+
+echo "KVM_IP_GATEWAY=${KVM_IP_GATEWAY}" >> ${PARAMS}
+echo "export KVM_IP_GATEWAY" >> ${PARAMS}
 
 if [ -z $KVM_IP_NAMESERVER ]; then
     KVM_IP_NAMESERVER=$DEFAULT_KVM_IP_NAMESERVER
 fi
-export KVM_IP_NAMESERVER
+echo "KVM_IP_NAMESERVER=${KVM_IP_NAMESERVER}" >> ${PARAMS}
+echo "export KVM_IP_NAMESERVER" >> ${PARAMS}
 
-KVM_FQDN=${KVM_HOSTNAME}.${KVM_DOMAIN}
-export KVM_FQDN
+echo "KVM_FQDN=${KVM_HOSTNAME}.${KVM_DOMAIN}" >> ${PARAMS}
+echo "export KVM_FQDN" >> ${PARAMS}
 
-KVM_SEARCH_DOMAIN="${KVM_DOMAIN}"
-export KVM_SEARCH_DOMAIN
+echo "KVM_SEARCH_DOMAIN=${KVM_DOMAIN}" >> ${PARAMS}
+echo "export KVM_SEARCH_DOMAIN" >> ${PARAMS}
 
-export DISK_IMAGE=${KVM_HOSTNAME}_ubuntu-${U_RELEASE}-${U_ARCH}.img
-export VM_SWAP_IMAGE=${KVM_HOSTNAME}_swap_ubuntu-${U_RELEASE}-${U_ARCH}.img
-export VM_ROOT=${U_RELEASE}-${U_ARCH}-vm
+echo "export DISK_IMAGE=${KVM_HOSTNAME}_ubuntu-${U_RELEASE}-${U_ARCH}.img" >> ${PARAMS}
+echo "export VM_SWAP_IMAGE=${KVM_HOSTNAME}_swap_ubuntu-${U_RELEASE}-${U_ARCH}.img" >> ${PARAMS}
+echo "export VM_ROOT=${U_RELEASE}-${U_ARCH}-vm" >> ${PARAMS}
+}
 
+if [ -z $GUEST_PARAMS ]; then
+    store_params
+    read_params ${PARAMS}
+fi
 echo "Using network configuration"
 echo "  hostname  : $KVM_HOSTNAME"
 echo "  domain    : $KVM_DOMAIN"
