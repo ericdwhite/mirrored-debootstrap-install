@@ -32,7 +32,9 @@ openssh-server
 
 #
 # Kernel
-linux-image-server
+#  linux-image-virtual
+#  linux-image-server
+linux-image-2.6.35-22-virtual
 grub
 
 #

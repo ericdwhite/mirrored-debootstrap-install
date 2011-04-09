@@ -9,7 +9,7 @@ The overall process is described [here](http://blog.ericwhite.ca/articles/2010/1
 Requirements:
 
  * Debian/Ubuntu starting system
- * $ sudo apt-get install debootstrap germinate reprepro kpartx uml-utilities qemu-kvm parprouted
+ * $ sudo apt-get install debootstrap grub germinate reprepro kpartx uml-utilities qemu-kvm parprouted
  * sudo
 
 Running these scripts
@@ -127,6 +127,13 @@ downloaded.
 
 Re-running the script will also download new updates for previously
 mirrored packages.
+
+Issues
+======
+I. The kernel image is failing to install.
+
+I had this issue in one VM and got around it by specifying an exact
+kernel in additional.packages, rerunning step 01, and then step 05.
 
 Utilities
 =========

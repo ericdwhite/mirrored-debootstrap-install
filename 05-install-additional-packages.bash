@@ -25,7 +25,7 @@ fi
     ADDITIONAL_PACKAGES=`cat ${UB_HOME}/additional.packages | grep -v '^#' | sort -u | tr '\n' ' '`
     linfo "Installing: $ADDITIONAL_PACKAGES"
     sudo env PKGS="$ADDITIONAL_PACKAGES" chroot ${VM_ROOT} \
-	/bin/bash -c 'apt-get -y --force-yes install ${PKGS}' || die "UBE040"
+	/bin/bash -c 'apt-get update && apt-get -y --force-yes install ${PKGS}' || die "UBE040"
     
     ${UB_HOME}/11-umount-image.bash || die
 )

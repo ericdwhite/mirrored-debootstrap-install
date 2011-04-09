@@ -15,11 +15,15 @@
 # Note: this is the configuration tested.
 
 # Ubuntu Release
-U_RELEASE=maverick
+if [ -z $U_RELEASE ]; then
+  U_RELEASE=maverick
+fi
 export U_RELEASE
 
 # Ubuntu Architecture
-U_ARCH=i386
+if [ -z $U_ARCH ]; then
+  U_ARCH=i386
+fi
 export U_ARCH
 
 # Ubuntu Source Package Mirror
